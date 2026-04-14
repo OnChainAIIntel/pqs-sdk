@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: prompt-quality-score
-Version: 1.1.0
+Version: 1.2.0
 Summary: The world's first named AI prompt quality score. Score and optimize prompts before LLM inference.
 Author-email: Ken Burbary <onchainintel@proton.me>
 License: MIT

@@ -1,0 +1,152 @@
+Metadata-Version: 2.4
+Name: prompt-quality-score
+Version: 1.0.0
+Summary: The world's first named AI prompt quality score. Score and optimize prompts before LLM inference.
+Author-email: Ken Burbary <onchainintel@proton.me>
+License: MIT
+Project-URL: Homepage, https://pqs.onchainintel.net
+Project-URL: Repository, https://github.com/OnChainAIIntel/pqs-sdk
+Keywords: prompt,quality,score,llm,ai,crewai,agents,pqs
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: requests>=2.28.0
+Requires-Dist: pydantic>=2.0.0
+Provides-Extra: crewai
+Requires-Dist: crewai>=0.80.0; extra == "crewai"
+Provides-Extra: all
+Requires-Dist: crewai>=0.80.0; extra == "all"
+
+# PQS SDK — Prompt Quality Score for Python
+
+**The world's first named AI prompt quality score.**  
+Score and optimize prompts before LLM inference. Built for developers, AI agents, and CrewAI workflows.
+
+> "Cheaper than one bad prompt."
+
+---
+
+## Install
+
+```bash
+pip install pqs-sdk
+
+# With CrewAI integration
+pip install pqs-sdk[crewai]
+```
+
+---
+
+## Get a Free API Key
+
+[pqs.onchainintel.net](https://pqs.onchainintel.net) — free scoring, no credit card required.
+
+---
+
+## Quick Start
+
+### Score a prompt
+
+```python
+from pqs_sdk import PQSClient
+
+client = PQSClient(api_key="your-pqs-api-key")
+
+result = client.score("help me write a blog post", vertical="content")
+print(result)
+# → PQS Score: 8/40 | Grade: F | Fail | Prompt lacks context, audience, and goal
+```
+
+### Optimize a weak prompt
+
+```python
+optimized = client.optimize("help me write a blog post", vertical="content")
+print(optimized)
+# → Optimized: F (8/40) → B (31/40) [+23 pts]
+
+print(optimized.optimized_prompt)
+# → Write a 1,000-word blog post for senior software engineers about...
+```
+
+---
+
+## CrewAI Integration
+
+Add PQS as a pre-flight quality gate to any CrewAI agent in 3 lines:
+
+```python
+from crewai import Agent
+from pqs_sdk import PQSScoreTool, PQSOptimizeTool
+
+# Initialize tools
+pqs_score = PQSScoreTool(api_key="your-pqs-api-key")
+pqs_optimize = PQSOptimizeTool(api_key="your-pqs-api-key")
+
+# Add to any agent
+agent = Agent(
+    role="Research Analyst",
+    goal="Conduct quality research with well-crafted prompts",
+    backstory="You always score prompts before sending them to an LLM.",
+    tools=[pqs_score, pqs_optimize]
+)
+```
+
+That's it. Your agent now scores every prompt before inference — catching weak inputs before they waste tokens or produce bad outputs.
+
+---
+
+## Verticals
+
+PQS scores prompts across 7 domain verticals:
+
+| Vertical | Use Case |
+|----------|----------|
+| `software` | Code generation, debugging, architecture |
+| `content` | Blog posts, copywriting, social media |
+| `business` | Strategy, analysis, emails |
+| `education` | Tutoring, explanations, curriculum |
+| `science` | Research, data analysis, hypothesis |
+| `crypto` | Web3, DeFi, blockchain analysis |
+| `general` | General purpose |
+
+---
+
+## Pricing
+
+| Endpoint | Cost |
+|----------|------|
+| Score | Free |
+| Optimize | $0.025 USDC |
+| Compare (Claude vs GPT-4o) | $1.25 USDC |
+
+Payments via [x402](https://x402.org) on Base mainnet. Agents pay natively — no human in the loop.
+
+---
+
+## Why PQS?
+
+89% of real prompts score D or F. The AI input quality problem is real — and PQS named it.
+
+Bad inputs produce bad outputs regardless of model quality. PQS is the missing pre-flight layer between human intent and model execution.
+
+**PQS is to AI agents what a linter is to code.** You wouldn't push code without checking it. Don't send a prompt without scoring it.
+
+---
+
+## Links
+
+- [Product](https://pqs.onchainintel.net)
+- [GitHub](https://github.com/OnChainAIIntel/pqs-sdk)
+- [npm package](https://www.npmjs.com/package/x402-pqs) (Node.js)
+- [MCP Server](https://www.npmjs.com/package/pqs-mcp-server)
+
+---
+
+MIT License © 2026 Ken Burbary / OnChainIntel

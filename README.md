@@ -1,5 +1,7 @@
 # PQS SDK — Prompt Quality Score for Python
 
+[![GitHub Marketplace](https://img.shields.io/badge/GitHub_Marketplace-PQS_Check-2ea44f?logo=github)](https://github.com/marketplace/actions/pqs-check)
+
 **The world's first named AI prompt quality score.**  
 Score and optimize prompts before LLM inference. Built for developers, AI agents, and CrewAI workflows.
 
